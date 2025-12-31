@@ -1,3 +1,4 @@
+// Responsive sizing utilities based on screen dimensions
 import {Dimensions, Platform} from 'react-native';
 
 const BASE_WIDTH = 390;
@@ -28,6 +29,7 @@ export const ms = (size: number, factor: number = 0.5): number => {
   return size + (hs(size) - size) * factor;
 };
 
+// Width and height percentage-based sizing
 export const wp = (percentage: number): number => {
   const {width} = getPortraitDimensions();
   return (width * percentage) / 100;

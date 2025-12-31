@@ -23,6 +23,7 @@ export const ProductList: React.FC<ProductListProps> = ({
   hasMore = false,
   isEditMode = false,
 }) => {
+  // Responsive layout: 2 columns in landscape, 1 in portrait
   const orientation = useOrientation();
   const isLandscape = orientation === 'landscape';
   const numColumns = isLandscape ? 2 : 1;
@@ -56,6 +57,7 @@ export const ProductList: React.FC<ProductListProps> = ({
     );
   };
 
+  // Trigger pagination when on end reached
   const handleEndReached = () => {
     if (hasMore && onLoadMore) {
       onLoadMore();
@@ -85,7 +87,7 @@ export const ProductList: React.FC<ProductListProps> = ({
 const styles = StyleSheet.create({
   container: {
     paddingTop: spacing.xs,
-    paddingBottom: spacing.padding.xl,
+    paddingBottom: spacing.padding.xxl,
     flexGrow: 1,
   },
   gridContainer: {

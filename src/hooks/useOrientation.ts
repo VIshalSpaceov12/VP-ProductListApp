@@ -3,6 +3,7 @@ import {Dimensions} from 'react-native';
 
 type Orientation = 'portrait' | 'landscape';
 
+// Hook to track device orientation changes
 export const useOrientation = (): Orientation => {
   const [orientation, setOrientation] = useState<Orientation>(getOrientation());
 

@@ -11,6 +11,7 @@ import productsData from '../data/Products.json';
 const PAGE_SIZE = 20;
 
 export const ProductScreen: React.FC = () => {
+  // State for products, search, sort, and selection
   const [products, setProducts] = useState<Product[]>(productsData as Product[]);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState<SortOrder>('none');
@@ -18,6 +19,7 @@ export const ProductScreen: React.FC = () => {
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [isEditMode, setIsEditMode] = useState(false);
 
+  // Filter and sort products
   const filteredAndSortedProducts = useMemo(() => {
     const filtered = filterProducts(products, searchTerm);
     return sortProducts(filtered, sortOrder);
@@ -29,6 +31,7 @@ export const ProductScreen: React.FC = () => {
 
   const hasMore = visibleCount < filteredAndSortedProducts.length;
 
+  // Event handlers for sort, select, delete, and load more
   const handleSortPress = useCallback(() => {
     setSortOrder(current => {
       if (current === 'none') return 'asc';

@@ -12,6 +12,7 @@ interface ProductItemProps {
   isEditMode?: boolean;
 }
 
+// Renders a single product card in the list
 export const ProductItem: React.FC<ProductItemProps> = ({
   product,
   isSelected,
@@ -44,6 +45,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({
             <View style={styles.textContent}>
               <Text style={styles.title} numberOfLines={2}>{product.title}</Text>
               <Text style={styles.description} numberOfLines={2}>{product.description}</Text>
+              {/* Display up to 3 tags for each product */}
               {product?.tags?.length > 0 && (
                 <View style={styles.tagsContainer}>
                   {product.tags.slice(0, 3).map((tag, index) => (

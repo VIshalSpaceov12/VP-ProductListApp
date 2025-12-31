@@ -2,9 +2,7 @@ import React, {useState, useMemo, useCallback} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Keyboard} from 'react-native';
 import {Product, SortOrder} from '../types';
 import {filterProducts, sortProducts} from '../utils/productUtils';
-import {SearchBar} from '../components/SearchBar';
-import {ProductList} from '../components/ProductList';
-import {FloatingDeleteButton} from '../components/FloatingDeleteButton';
+import {SearchBar, ProductList, FloatingDeleteButton} from '../components';
 import {colors, spacing, fonts} from '../theme';
 import productsData from '../data/Products.json';
 
@@ -14,7 +12,7 @@ export const ProductScreen: React.FC = () => {
   // State for products, search, sort, and selection
   const [products, setProducts] = useState<Product[]>(productsData as Product[]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortOrder, setSortOrder] = useState<SortOrder>('none');
+  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.NONE);
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -34,9 +32,9 @@ export const ProductScreen: React.FC = () => {
   // Event handlers for sort, select, delete, and load more
   const handleSortPress = useCallback(() => {
     setSortOrder(current => {
-      if (current === 'none') return 'asc';
-      if (current === 'asc') return 'desc';
-      return 'none';
+      if (current === SortOrder.NONE) return SortOrder.ASC;
+      if (current === SortOrder.ASC) return SortOrder.DESC;
+      return SortOrder.NONE;
     });
   }, []);
 
@@ -53,7 +51,7 @@ export const ProductScreen: React.FC = () => {
   }, []);
 
   const handleDeleteSelected = useCallback(() => {
-    setProducts(current => current.filter(p => !selectedIds.has(p.id)));
+    setProducts(current => current.filter(product => !selectedIds.has(product.id)));
     setSelectedIds(new Set());
     setIsEditMode(false);
   }, [selectedIds]);
@@ -73,6 +71,12 @@ export const ProductScreen: React.FC = () => {
   const handleSearchChange = useCallback((text: string) => {
     setSearchTerm(text);
     setVisibleCount(PAGE_SIZE);
+  }, []);
+
+  const handleLongPress = useCallback((id: number) => {
+    Keyboard.dismiss();
+    setIsEditMode(true);
+    setSelectedIds(new Set([id]));
   }, []);
 
   return (
@@ -100,6 +104,7 @@ export const ProductScreen: React.FC = () => {
         products={displayedProducts}
         selectedIds={selectedIds}
         onToggleSelect={handleToggleSelect}
+        onLongPress={handleLongPress}
         onLoadMore={handleLoadMore}
         hasMore={hasMore}
         isEditMode={isEditMode}

@@ -8,6 +8,7 @@ interface ProductItemProps {
   product: Product;
   isSelected: boolean;
   onToggleSelect: (id: number) => void;
+  onLongPress?: (id: number) => void;
   isLandscape?: boolean;
   isEditMode?: boolean;
 }
@@ -17,6 +18,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({
   product,
   isSelected,
   onToggleSelect,
+  onLongPress,
   isLandscape = false,
   isEditMode = false,
 }) => {
@@ -27,6 +29,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({
       <TouchableOpacity
         style={[styles.container, isEditMode && isSelected && styles.selected]}
         onPress={() => isEditMode && onToggleSelect(product.id)}
+        onLongPress={() => !isEditMode && onLongPress?.(product.id)}
         activeOpacity={isEditMode ? 0.8 : 1}>
         <View style={styles.imageContainer}>
           <Image

@@ -14,9 +14,9 @@ interface SearchBarProps {
 
 const getSortIcon = (order: SortOrder): ImageSourcePropType => {
   switch (order) {
-    case 'asc':
+    case SortOrder.ASC:
       return images.up_arrow;
-    case 'desc':
+    case SortOrder.DESC:
       return images.down_arrow;
     default:
       return images.up_down;
@@ -71,14 +71,14 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         </TouchableOpacity>
       </View>
       <TouchableOpacity
-        style={[styles.sortButton, sortOrder !== 'none' && styles.sortButtonActive]}
+        style={[styles.sortButton, sortOrder !== SortOrder.NONE && styles.sortButtonActive]}
         onPress={handleSortPress}
         activeOpacity={0.7}>
         <Image
           source={getSortIcon(sortOrder)}
           style={[
             styles.sortIcon,
-            {tintColor: sortOrder !== 'none' ? colors.white : colors.textTertiary},
+            {tintColor: sortOrder !== SortOrder.NONE ? colors.white : colors.textTertiary},
           ]}
         />
       </TouchableOpacity>

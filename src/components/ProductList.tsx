@@ -10,6 +10,7 @@ interface ProductListProps {
   products: Product[];
   selectedIds: Set<number>;
   onToggleSelect: (id: number) => void;
+  onLongPress?: (id: number) => void;
   onLoadMore?: () => void;
   hasMore?: boolean;
   isEditMode?: boolean;
@@ -19,6 +20,7 @@ export const ProductList: React.FC<ProductListProps> = ({
   products,
   selectedIds,
   onToggleSelect,
+  onLongPress,
   onLoadMore,
   hasMore = false,
   isEditMode = false,
@@ -33,6 +35,7 @@ export const ProductList: React.FC<ProductListProps> = ({
       product={item}
       isSelected={selectedIds.has(item.id)}
       onToggleSelect={onToggleSelect}
+      onLongPress={onLongPress}
       isLandscape={isLandscape}
       isEditMode={isEditMode}
     />

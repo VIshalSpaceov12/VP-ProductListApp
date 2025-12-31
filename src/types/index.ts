@@ -7,4 +7,8 @@ export interface Product {
   tags: string[];
 }
 
-export type SortOrder = 'none' | 'asc' | 'desc';
+export enum SortOrder {
+  NONE = 'none',
+  ASC = 'asc',
+  DESC = 'desc',
+}

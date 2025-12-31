@@ -23,12 +23,12 @@ export const sortProducts = (
   products: Product[],
   order: SortOrder,
 ): Product[] => {
-  if (order === 'none') {
+  if (order === SortOrder.NONE) {
     return products;
   }
 
   return [...products].sort((a, b) => {
-    if (order === 'asc') {
+    if (order === SortOrder.ASC) {
       return a.price - b.price;
     }
     return b.price - a.price;
